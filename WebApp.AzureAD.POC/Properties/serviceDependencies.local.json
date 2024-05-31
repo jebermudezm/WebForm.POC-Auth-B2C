@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "identityapp1": {
+      "connectionInfo": "App registration: PubliconDev, Tenant: MVM Ingenieria de Software (globalmvm.com - Microsoft Entra ID)",
+      "type": "identityapp.default"
+    }
+  }
+}
