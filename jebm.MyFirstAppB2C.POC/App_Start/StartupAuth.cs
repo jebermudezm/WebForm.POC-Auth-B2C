@@ -17,8 +17,15 @@ namespace jebm.MyFirstAppB2C.POC
     public partial class Startup
     {
 
+        private string redirectUri = ConfigurationManager.AppSettings["ida:RedirectUri"];
+        private string clientId = ConfigurationManager.AppSettings["ida:ClientId"];
+        private string instance = ConfigurationManager.AppSettings["ida:AADInstance"];
+        private string policy = ConfigurationManager.AppSettings["ida:Policy"];
+            
+
         public void ConfigureAuth(IAppBuilder app)
         {
+            var authority = $"{instance}{policy}/v2.0/";
             IdentityModelEventSource.ShowPII = true;
             ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
 
@@ -29,10 +36,9 @@ namespace jebm.MyFirstAppB2C.POC
             app.UseOpenIdConnectAuthentication(
                 new OpenIdConnectAuthenticationOptions
                 {
-                    ClientId = "f7301011-94ce-4e7b-b28f-e8b0863d8466",
-                    Authority = "https://b2cbibcomptranssgprb.b2clogin.com/b2cbibcomptranssgprb.onmicrosoft.com/b2c_1a_signup_signin/v2.0/.",
-                    RedirectUri = "https://localhost:44324",
-                    //PostLogoutRedirectUri = "https://localhost:44224/signin-oidc",
+                    ClientId = clientId,
+                    Authority = authority,
+                    RedirectUri = redirectUri,
 
                     ResponseType = OpenIdConnectResponseType.IdToken,
                     Scope = OpenIdConnectScope.OpenIdProfile,
